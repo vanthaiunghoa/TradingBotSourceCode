@@ -6,10 +6,8 @@ from pandas.core.frame import DataFrame
 
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
-import backtest_tool as tool
 import string
 import time
-from bs4.element import SoupStrainer
 import pandas as pd
 import numpy as np
 import re as regex
@@ -20,8 +18,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import time
-from bs4 import BeautifulSoup
-import requests
 from datetime import date, datetime
 import statistics as stats
 
@@ -72,83 +68,6 @@ def convert15minute(datetime_object):
     current_time = hour*60 + minute  # the time fram calculate in the minutes
     return int(current_time / 15)
 
-def buy(driver, stock_label, price, quantity):
-
-    stockInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div/div/input')
-
-    stockInput.send_keys(stock_label)
-
-    priceInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[3]/input')
-
-    priceInput.send_keys(price)
-
-    quantityInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[4]/input')
-
-    quantityInput.send_keys(quantity)
-
-    driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[5]/button[1]').click()
-
-
-def sell(driver, stock_label, price, quantity):
-
-    stockInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div/div/input')
-
-    #stockInput.send_keys(stock_label)
-
-    priceInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[3]/input')
-
-    priceInput.send_keys(price)
-
-    quantityInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[4]/input')
-
-    quantityInput.send_keys(quantity)
-
-    driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[5]/button[2]').click()
-
-
-def stop(driver, stock_label, price, quantity, price_activate, when, action):
-
-    stockInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[2]/div/div/input')
-
-    stockInput.send_keys(stock_label)
-
-    priceInput = driver.find_elememt_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[3]/input')
-
-    priceInput.send_keys(price)
-
-    quantityInput = driver.find_element_by_xpath(
-        '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[4]/input')
-
-    quantityInput.send_keys(quantity)
-
-    if (when == '>='):
-        greaterTrigger = driver.find_element_by_xpath(
-            '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[5]/div[1]/a[2]')
-        greaterTrigger.click()
-    else:
-        lessTrigger = driver.find_element_by_xpath(
-            '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[5]/div[1]/a[1]')
-
-        lessTrigger.click()
-
-    if action == 'buy':
-        driver.find_elment_by_xpath(
-            '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[7]/button[1]').click()
-
-    else:
-        driver.find_element_by_xpath(
-            '/html/body/div/div/div[2]/div/div/div[3]/div[2]/div/div[7]/button[2]').click()
-    
 def convertToMinute(datetime_object, time_interval):
 
     hour = datetime_object.hour
